@@ -20,8 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TasbihScreen(modifier: Modifier = Modifier) {
-    var count by remember { mutableStateOf(0) }
+fun TasbihScreen(count: Int, onIncrement:() -> Unit, onReset:() -> Unit, modifier: Modifier = Modifier) {
 
     Column(
         modifier.fillMaxSize().padding(16.dp),
@@ -32,8 +31,8 @@ fun TasbihScreen(modifier: Modifier = Modifier) {
         Spacer(Modifier.height(16.dp))
         Text("$count", style = MaterialTheme.typography.displayLarge)
         Spacer(Modifier.height(24.dp))
-        Button(onClick = { count++ }) { Text("+1") }
+        Button(onClick = onIncrement) { Text("+1") }
         Spacer(Modifier.height(8.dp))
-        OutlinedButton(onClick = { count = 0 }) { Text("Reset") }
+        OutlinedButton(onClick = onReset) { Text("Reset") }
     }
 }

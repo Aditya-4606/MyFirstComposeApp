@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.shalatku.ui.theme.ShalatkuTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ShalatkuApp() {
+fun ShalatkuApp(viewModel: SalatkuViewModel = viewModel()) {
     var selected by remember { mutableStateOf(0) }
     val donePrayers = remember { mutableStateListOf<String>() }
 
@@ -75,7 +76,12 @@ fun ShalatkuApp() {
                 },
                 modifier = contentModifier
             )
-            2 -> TasbihScreen(contentModifier)
+            2 -> TasbihScreen(
+                count = viewModel.tasbihCount,
+                onIncrement = viewModel::incrementTasbih,
+                onReset = viewModel::resetTasbih,
+                modifier = Modifier.padding(padding)
+            )
         }
     }
 }
