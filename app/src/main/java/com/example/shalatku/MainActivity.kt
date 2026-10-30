@@ -67,20 +67,21 @@ fun ShalatkuApp(viewModel: SalatkuViewModel = viewModel()) {
     ) { padding ->
         val contentModifier = Modifier.padding(padding)
         when (selected) {
-            0 -> HomeScreen(samplePrayers, contentModifier)
+            0 -> HomeScreen(
+                prayers = samplePrayers,
+                modifier = contentModifier
+            )
             1 -> TrackerScreen(
                 prayers = samplePrayers,
-                donePrayers = donePrayers,
-                onToggle = { name ->
-                    if (name in donePrayers) donePrayers.remove(name) else donePrayers.add(name)
-                },
+                donePrayers = viewModel.donePrayers,
+                onToggle = viewModel::togglePrayer,
                 modifier = contentModifier
             )
             2 -> TasbihScreen(
                 count = viewModel.tasbihCount,
                 onIncrement = viewModel::incrementTasbih,
                 onReset = viewModel::resetTasbih,
-                modifier = Modifier.padding(padding)
+                modifier = contentModifier
             )
         }
     }

@@ -11,17 +11,17 @@ class SalatkuViewModel : ViewModel() {
     var tasbihCount by mutableIntStateOf(0)
         private set
     // --- Tracker ---
-//    private val _donePrayers = mutableStateListOf<String>()
-//    val donePrayers: List<String> get() = _donePrayers
+    private val _donePrayers = mutableStateListOf<String>()
+    val donePrayers: List<String> get() = _donePrayers
     // --- Home ---
-//    var selectedDay by mutableIntStateOf(0)
-//        private set
+    var selectedDay by mutableIntStateOf(0)
+        private set
     fun incrementTasbih() { tasbihCount++ }
     fun resetTasbih() { tasbihCount = 0 }
-//    fun togglePrayer(name: String) {
-//        if (name in _donePrayers) _donePrayers.remove(name) else _donePrayers.add(name)
-//    }
-//    fun selectDay(index: Int) {
-//        selectedDay = index
-//    }
+    fun togglePrayer(name: String) {
+        if (name in _donePrayers) _donePrayers.remove(name) else _donePrayers.add(name)
+    }
+    fun selectDay(index: Int) {
+        selectedDay = index
+    }
 }

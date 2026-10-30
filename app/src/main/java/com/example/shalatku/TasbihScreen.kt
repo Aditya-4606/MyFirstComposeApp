@@ -20,7 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TasbihScreen(count: Int, onIncrement:() -> Unit, onReset:() -> Unit, modifier: Modifier = Modifier) {
+fun TasbihScreen(
+    count: Int,
+    onIncrement:() -> Unit,
+    onReset:() -> Unit,
+    modifier: Modifier = Modifier) {
 
     Column(
         modifier.fillMaxSize().padding(16.dp),
