@@ -1,6 +1,7 @@
 package com.example.shalatku
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 fun TasbihScreen(
     count: Int,
     rounds: Int,
+    onSetRoundSize: (Int) -> Unit,
     onIncrement:() -> Unit,
     onReset:() -> Unit,
     modifier: Modifier = Modifier) {
@@ -36,13 +38,20 @@ fun TasbihScreen(
     ) {
         Text("Tasbih", style = MaterialTheme.typography.headlineMedium)
         Spacer(Modifier.height(16.dp))
+
         Text("$count", style = MaterialTheme.typography.displayLarge)
         Spacer(Modifier.height(24.dp))
         Text("$rounds", style = MaterialTheme.typography.displaySmall)
         Spacer(Modifier.height(24.dp))
         Button(onClick = onIncrement) { Text("+1") }
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(24.dp))
+
         OutlinedButton(onClick = onReset) { Text("Reset") }
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            Button(onClick = { onSetRoundSize(33) }) { Text("33") }
+            Button(onClick = { onSetRoundSize(99) }) { Text("99") }
+            Button(onClick = { onSetRoundSize(100) }) { Text("100") }
+        }
     }
 }
 
@@ -53,6 +62,7 @@ fun TasbihScreenPreview() {
         count = 12,
         rounds = 2,
         onIncrement = {},
+        onSetRoundSize = {},
         onReset = {}
     )
 }

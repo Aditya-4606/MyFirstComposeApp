@@ -16,9 +16,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -38,8 +37,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ShalatkuApp(viewModel: SalatkuViewModel = viewModel()) {
-    var selected by remember { mutableStateOf(0) }
-    val donePrayers = remember { mutableStateListOf<String>() }
+    var selected by rememberSaveable() { mutableStateOf(0) }
 
     Scaffold(
         bottomBar = {
@@ -75,11 +73,13 @@ fun ShalatkuApp(viewModel: SalatkuViewModel = viewModel()) {
                 prayers = samplePrayers,
                 donePrayers = viewModel.donePrayers,
                 onToggle = viewModel::togglePrayer,
+                onClear = viewModel::clearPrayers,
                 modifier = contentModifier
             )
             2 -> TasbihScreen(
                 count = viewModel.tasbihCount,
                 rounds = viewModel.completeRounds,
+                onSetRoundSize = viewModel::setRound,
                 onIncrement = viewModel::incrementTasbih,
                 onReset = viewModel::resetTasbih,
                 modifier = contentModifier
