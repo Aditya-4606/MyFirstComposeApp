@@ -17,11 +17,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun TasbihScreen(
     count: Int,
+    rounds: Int,
     onIncrement:() -> Unit,
     onReset:() -> Unit,
     modifier: Modifier = Modifier) {
@@ -35,8 +38,21 @@ fun TasbihScreen(
         Spacer(Modifier.height(16.dp))
         Text("$count", style = MaterialTheme.typography.displayLarge)
         Spacer(Modifier.height(24.dp))
+        Text("$rounds", style = MaterialTheme.typography.displaySmall)
+        Spacer(Modifier.height(24.dp))
         Button(onClick = onIncrement) { Text("+1") }
         Spacer(Modifier.height(8.dp))
         OutlinedButton(onClick = onReset) { Text("Reset") }
     }
+}
+
+@Preview
+@Composable
+fun TasbihScreenPreview() {
+    TasbihScreen(
+        count = 12,
+        rounds = 2,
+        onIncrement = {},
+        onReset = {}
+    )
 }

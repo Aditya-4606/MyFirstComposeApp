@@ -79,6 +79,7 @@ fun ShalatkuApp(viewModel: SalatkuViewModel = viewModel()) {
             )
             2 -> TasbihScreen(
                 count = viewModel.tasbihCount,
+                rounds = viewModel.completeRounds,
                 onIncrement = viewModel::incrementTasbih,
                 onReset = viewModel::resetTasbih,
                 modifier = contentModifier
