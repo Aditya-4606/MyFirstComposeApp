@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 fun TasbihScreen(
     count: Int,
     rounds: Int,
+    roundSize: Int,
     onSetRoundSize: (Int) -> Unit,
     onIncrement:() -> Unit,
     onReset:() -> Unit,
@@ -53,16 +54,4 @@ fun TasbihScreen(
             Button(onClick = { onSetRoundSize(100) }) { Text("100") }
         }
     }
-}
-
-@Preview
-@Composable
-fun TasbihScreenPreview() {
-    TasbihScreen(
-        count = 12,
-        rounds = 2,
-        onIncrement = {},
-        onSetRoundSize = {},
-        onReset = {}
-    )
 }

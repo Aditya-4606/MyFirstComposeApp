@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,10 +19,25 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomeScreen(
     prayers: List<Prayer>,
+    selectedDay: Int = 0,
+    onSelectDay: (Int) -> Unit = {},
     modifier: Modifier = Modifier) {
+    val days = listOf("Hari Ini", "Besok", "Lusa")
     Column(modifier.padding(16.dp)) {
         Text("Shalatku", style = MaterialTheme.typography.headlineMedium)
         Text("Today's prayer times", style = MaterialTheme.typography.bodyMedium)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            days.forEachIndexed { index, dayName ->
+                FilterChip(
+                    selected = selectedDay == index,
+                    onClick = { onSelectDay(index) },
+                    label = { Text(dayName) }
+                )
+            }
+        }
         Spacer(Modifier.height(16.dp))
         prayers.forEach { prayer -> PrayerCard(prayer) }
     }
