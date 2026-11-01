@@ -45,6 +45,11 @@ fun ShalatkuApp(viewModel: SalatkuViewModel = viewModel()) {
     // UI-only state stays here (M12 rule 4).
     var selected by rememberSaveable { mutableIntStateOf(0) }
 
+    val currentPrayers = if (uiState.prayerTimes is PrayerTimesUiState.Success) {
+        (uiState.prayerTimes as PrayerTimesUiState.Success).times
+    } else {
+        samplePrayers
+    }
     Scaffold(
         bottomBar = {
             NavigationBar {
@@ -72,13 +77,15 @@ fun ShalatkuApp(viewModel: SalatkuViewModel = viewModel()) {
         val contentModifier = Modifier.padding(innerPadding)
         when (selected) {
             0 -> HomeScreen(
-                prayers = uiState.prayers,
+                prayerTimes = uiState.prayerTimes,
+                onRefreshPrayerTimes = viewModel::loadPrayerTimes,
                 selectedDay = uiState.selectedDay,
                 onSelectDay = viewModel::selectDay,
                 modifier = contentModifier
             )
             1 -> TrackerScreen(
-                prayers = uiState.prayers,
+                prayers = currentPrayers,
+                doneCount = uiState.doneCount,
                 donePrayers = uiState.donePrayers,
                 onToggle = viewModel::togglePrayer,
                 onClear = viewModel::clearPrayers,

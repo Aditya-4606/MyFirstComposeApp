@@ -1,15 +1,37 @@
 package com.example.shalatku
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class SalatkuViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(SalatkuUiState())
     val uiState: StateFlow<SalatkuUiState> = _uiState.asStateFlow()
 
+    private var callCounter = 0
+    fun loadPrayerTimes() {
+        if (_uiState.value.prayerTimes is PrayerTimesUiState.Loading) return
+
+        _uiState.update { it.copy(prayerTimes = PrayerTimesUiState.Loading) }
+
+        viewModelScope.launch {
+            delay(1500)
+            callCounter++
+
+            _uiState.update { state ->
+                if (callCounter % 2 == 0) {
+                    state.copy(prayerTimes = PrayerTimesUiState.Error("Gagal mengambil data. Coba lagi."))
+                } else {
+                    state.copy(prayerTimes = PrayerTimesUiState.Success(samplePrayers))
+                }
+            }
+        }
+    }
     fun togglePrayer(name: String) {
         _uiState.update { state ->
             val done = if (name in state.donePrayers) {

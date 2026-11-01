@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomeScreen(
-    prayers: List<Prayer>,
+    prayerTimes: PrayerTimesUiState,
+    onRefreshPrayerTimes: () -> Unit,
     selectedDay: Int = 0,
     onSelectDay: (Int) -> Unit = {},
     modifier: Modifier = Modifier) {
@@ -39,7 +40,10 @@ fun HomeScreen(
             }
         }
         Spacer(Modifier.height(16.dp))
-        prayers.forEach { prayer -> PrayerCard(prayer) }
+        PrayerTimesSection(
+            state = prayerTimes,
+            onRefresh = onRefreshPrayerTimes
+        )
     }
 }
 
